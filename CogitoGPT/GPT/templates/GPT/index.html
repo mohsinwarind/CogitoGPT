@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CogitoGPT</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header id="header">
+      <h1>CogitoGPT</h1>
+      <p>Upload your research paper & ask questions instantly</p>
+    
+    </header>
+
+    <!-- Upload + Input Section -->
+    <div class="upload-box" id="uploadBox"> 
+      <input type="file" id="fileInput" />
+    </div>
+
+    <!-- Chat Section -->
+    <div class="chat-container" id="chatContainer">
+      <!-- Messages will appear here dynamically -->
+       
+    </div>
+    <div class="typing-indicator hidden" id="typingIndicator">
+      <span></span><span></span><span></span>
+    </div>
+    <!-- Input Section -->
+    <form method="post" id="ask-form" class="input-box">
+      {% csrf_token %}
+      <input type="text" id="questionInput" placeholder="Ask a question.." required>
+      <button type="submit" id="submitBtn">➤</button>
+    </form>
+
+    <!-- Typing Indicator -->
+    
+
+  </div>
+
+  <script src="{% static 'script.js' %}"></script>
+</body>
+</html>
