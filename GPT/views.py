@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.core.files.storage import default_storage
 from django.shortcuts import render 
-
+import markdown2
 import os
 import PyPDF2
 import docx
@@ -71,7 +71,8 @@ Question: {question}
 Answer:
 """
 
-        answer = query_huggingface(prompt)
+        raw_answer = query_huggingface(prompt)
+        answer = markdown2.markdown(raw_answer)
     
     return Response({"filename" : file.name if file else "Previously uploaded file", "answer" : answer})
             

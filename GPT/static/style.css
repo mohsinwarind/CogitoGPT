@@ -9,10 +9,39 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #3e466e, #473955);
   color: #333;
-  height: 100vh;
+  height: 100%;
+  
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.logo-title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.logo{
+  width: 200px;
+  height: auto;
+}
+header.shrink .logo-title {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.4s ease;
+}
+header.shrink .logo{
+  width: 40px;
+  transition: all 0.4s ease;
+  height: auto;
+}
+
+header.shrink h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  transition: all 0.4s ease;
 }
 
 /* App Container */
@@ -20,6 +49,7 @@ body {
   background: #fff;
   width: 90%;
   height: 95%;
+  margin-top: 20px;
   /* max-width: 850px; */
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
@@ -30,24 +60,28 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: all 0.4s ease;
   animation: fadeIn 0.6s ease-in-out;
 }
-
+header.shrink .app-container {
+  height: 300px;
+  transition: all 0.4s ease;
+}
 header {
   /* margin-top: 10%; */
-  gap: 20px;
+  gap: 30px;
   text-align: center;
 }
 
 header h1 {
-  font-size: 2rem;
-  color: #4b6cb7;
+  font-size: 2.5rem;
+  color: #282f41;
   margin-bottom: 6px;
 }
 
 header p {
   color: #666;
-  font-size: 0.95rem;
+  font-size: 1.5rem;
 }
 
 /* Upload Box */
@@ -56,7 +90,7 @@ header p {
 }
 
 .upload-box input[type="file"] {
-  border: 2px dashed #4b6cb7;
+  border: 2px dashed #1e2433;
   padding: 12px;
   border-radius: 12px;
   background: #f7faff;
@@ -73,14 +107,19 @@ header p {
   background: #fafafa;
   border-radius: 15px;
   padding: 15px;
-  height: 400px;
+
+  flex: 1 1 auto;     /* grow + shrink within parent */
+  min-height: 140px;  /* never collapse smaller */
+  
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 12px;
+ 
   scrollbar-width: thin;
   scrollbar-color: #4b6cb7 #f0f0f0;
 }
+
 
 .chat-container::-webkit-scrollbar {
   width: 6px;
@@ -95,6 +134,7 @@ header p {
   padding: 12px 16px;
   border-radius: 14px;
   max-width: 75%;
+  margin: 10px 0;
   line-height: 1.5;
   animation: slideUp 0.3s ease;
 }
@@ -110,6 +150,29 @@ header p {
   align-self: flex-start;
   border: 1px solid #d5dbff;
 }
+/* .answer-box p { margin: 4px 0; }
+.answer-box ul { padding-left: 20px; margin: 6px 0; }
+.answer-box li { margin-bottom: 4px; } */
+.message.bot p { margin: 6px 0; }
+.message.bot ul { padding-left: 20px; margin: 10px 0; }
+.message.bot li { margin-bottom: 6px; }
+.message.bot ol { padding-left: 20px; margin: 10px 0; }
+.message.bot code {
+  background: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.message.bot pre {
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 10px 0;
+}
+
+
 
 /* Input Box */
 .input-box {

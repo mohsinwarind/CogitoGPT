@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     {% load static %}
+    {% comment %} {% load markdownify %} {% endcomment %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CogitoGPT</title>
@@ -12,6 +13,9 @@
     
     <!-- Header -->
     <header id="header">
+      <div class="logo-title">
+        <img src="{% static 'logo.png' %}" alt="Logo" class="logo">
+      </div>
       <h1>CogitoGPT</h1>
       <p>Upload your research paper & ask questions instantly</p>
     
@@ -21,7 +25,9 @@
     <div class="upload-box" id="uploadBox"> 
       <input type="file" id="fileInput" />
     </div>
+    {% comment %} Chat Section allow the user to have some chat {% endcomment %}
 
+    <div id="chatSection" class="hidden">
     <!-- Chat Section -->
     <div class="chat-container" id="chatContainer">
       <!-- Messages will appear here dynamically -->
@@ -37,6 +43,7 @@
       <button type="submit" id="submitBtn">➤</button>
     </form>
 
+  </div>
     <!-- Typing Indicator -->
     
 

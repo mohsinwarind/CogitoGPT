@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'GPT',
-    'rest_framework'
+    # 'markdownify'
 ]
 
 MIDDLEWARE = [
