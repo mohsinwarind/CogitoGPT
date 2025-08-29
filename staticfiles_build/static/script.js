@@ -1,0 +1,85 @@
+const fileInput = document.getElementById("fileInput");
+const questionInput = document.getElementById("questionInput");
+const chatContainer = document.getElementById("chatContainer");
+const uploadBox = document.getElementById("uploadBox");
+const typingIndicator = document.getElementById("typingIndicator");
+const header = document.getElementById("header");
+
+// ✅ helper function to always scroll to bottom
+function scrollToBottom() {
+  setTimeout(() => {
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  }, 50); // small delay ensures DOM update
+}
+
+// 👉 show chat section as soon as a file is uploaded
+fileInput.addEventListener("change", () => {
+  if (fileInput.files.length > 0) {
+    document.getElementById("chatSection").classList.remove("hidden");
+    scrollToBottom();
+  }
+});
+
+// 👉 handle submit separately
+document.getElementById("ask-form").addEventListener("submit", async function(event) {
+  event.preventDefault();
+  const question = questionInput.value.trim();
+
+  if (!fileInput.files[0]) {
+    alert("Please upload a file first.");
+    return;
+  }
+  if (!question) {
+    alert("Please enter a question.");
+    return;
+  }
+
+  header.classList.add("shrink");
+  uploadBox.style.display = "none"; // hide upload box after file upload
+
+  // append user message
+  const userMessage = document.createElement("div");
+  userMessage.className = "message user";
+  userMessage.textContent = question;
+  chatContainer.appendChild(userMessage);
+  scrollToBottom();
+
+  typingIndicator.classList.remove("hidden");
+  scrollToBottom();
+
+  questionInput.value = "";
+
+  // prepare form data
+  const formData = new FormData();
+  formData.append("file", fileInput.files[0]);
+  formData.append("question", question);
+
+  try {
+    const response = await fetch("upload/", {
+      method: "POST",
+      body: formData
+    });
+
+    const data = await response.json();
+
+    // bot message
+    const botMessage = document.createElement("div");
+    botMessage.className = "message bot";
+    botMessage.innerHTML = data.answer || "Sorry, no answer found.";
+    chatContainer.appendChild(botMessage);
+
+    typingIndicator.classList.add("hidden");
+    scrollToBottom();
+  } catch (error) {
+    console.error("Error:", error);
+    const botMessage = document.createElement("div");
+    botMessage.className = "message bot";
+    botMessage.textContent = "Something went wrong. Try again.";
+    chatContainer.appendChild(botMessage);
+
+    typingIndicator.classList.add("hidden");
+    scrollToBottom();
+  }
+
+  questionInput.value = ""; // clear input
+});
