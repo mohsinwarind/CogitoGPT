@@ -6,7 +6,7 @@
 CogitoGPT is an AI-powered chatbot app specifically built for **research purposes**.
 Being in academia for a while, I always found research articles overly complex and time-consuming to parse. So I built **CogitoGPT** to make interacting with papers easier.
 
-**How it works in short:** you **upload or paste** a research paper (or its text), then **ask questions** based on that content — CogitoGPT uses the uploaded text as context and gives intelligent, relevant, concise, context-aware answers in real-time. It **renders Markdown**, so responses look clean and dynamic (headings, lists, code blocks, etc.).
+**How it works in short:** you **upload** a research paper , then **ask questions** according to your need and CogitoGPT uses the extract the text content out of the file as context and gives intelligent, relevant, concise, context-aware answers in real-time. It **renders Markdown**, so responses look clean and dynamic (headings, lists, code blocks, etc.).
 
 ---
 
