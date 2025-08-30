@@ -10,7 +10,7 @@ Being in academia for a while, I always found research articles overly complex a
 
 ---
 
-## ⚙Features
+## Features
 
 *  **Upload & Ask** — Upload a paper or paste the text, then ask questions according to your needs.
 *  **Context-aware Q\&A** — Answers are generated using the uploaded content as context (not blind guessing).
@@ -47,7 +47,7 @@ Being in academia for a while, I always found research articles overly complex a
 * **User**: Asks — “Show me the model architecture as a short list.”
 * **CogitoGPT**: Outputs a concise, markdown-rendered list outlining the architecture.
 
-You can test it here - [CogitoGPT](https://cogitogpt.vercel.app/)
+#### You can test it here - [CogitoGPT](https://cogitogpt.vercel.app/)
 ---
 
 ##  Why CogitoGPT?
@@ -60,7 +60,7 @@ You can test it here - [CogitoGPT](https://cogitogpt.vercel.app/)
 ---
 
 
-## 🙌 Credits
+##  Credits
 
 * **Model**: Mistral-7B-Instruct-v0.3 (Hugging Face)
 * Built with ❤️ by Mohsin
