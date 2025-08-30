@@ -82,7 +82,7 @@ document.getElementById("ask-form").addEventListener("submit", async function(ev
     console.error("Error:", error);
     const botMessage = document.createElement("div");
     botMessage.className = "message bot";
-    botMessage.textContent = "Something went wrong. Try again.";
+    botMessage.textContent = "Something went wrong. Try again. ",+error.message;
     chatContainer.appendChild(botMessage);
   }
 
