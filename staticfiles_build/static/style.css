@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #3e466e, #473955);
+  background: linear-gradient(135deg, #282f41, #473955);
   color: #333;
   height: 100%;
   
@@ -65,6 +65,7 @@ header.shrink h1 {
 }
 header.shrink .app-container {
   height: 300px;
+  margin-top: 10%;
   transition: all 0.4s ease;
 }
 header {
@@ -269,6 +270,8 @@ header p {
   header h1 {
     font-size: 1.5rem;
   }
+/* flex overflow gotcha fix */
+.app-container, .chat-container { min-height: 0; }
 
   header p {
     font-size: 0.85rem;
@@ -302,4 +305,93 @@ header.shrink h1 {
 
 header.shrink p {
   display: none;
+}
+/* Mobile responsiveness */
+@media (max-width: 1024px) {
+  .app-container {
+    width: 95%;
+    height: 95%;
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .app-container {
+    width: 100%;
+    height: 100vh; /* take full screen on phones */
+    border-radius: 0;
+    padding: 15px;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+  }
+
+  header p {
+    font-size: 0.9rem;
+  }
+
+  .chat-container {
+    flex: 1;
+    min-height: auto;
+    height: 60vh; /* bigger chat space */
+  }
+
+  .input-box input {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+
+  .input-box button {
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    width: 120px;
+  }
+
+  header.shrink .logo {
+    width: 32px;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  .message {
+    max-width: 90%; /* wider bubbles on tiny screens */
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .input-box {
+    gap: 6px;
+  }
+
+  .input-box input {
+    font-size: 0.85rem;
+    padding: 8px;
+  }
+
+  .input-box button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
 }

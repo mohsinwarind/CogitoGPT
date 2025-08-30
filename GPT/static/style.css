@@ -7,7 +7,7 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #3e466e, #473955);
+  background: linear-gradient(135deg, #282f41, #473955);
   color: #333;
   height: 100%;
   
@@ -65,6 +65,7 @@ header.shrink h1 {
 }
 header.shrink .app-container {
   height: 300px;
+  margin-top: 10%;
   transition: all 0.4s ease;
 }
 header {
@@ -269,6 +270,8 @@ header p {
   header h1 {
     font-size: 1.5rem;
   }
+/* flex overflow gotcha fix */
+.app-container, .chat-container { min-height: 0; }
 
   header p {
     font-size: 0.85rem;

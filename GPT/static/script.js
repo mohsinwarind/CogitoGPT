@@ -5,20 +5,37 @@ const uploadBox = document.getElementById("uploadBox");
 const typingIndicator = document.getElementById("typingIndicator");
 const header = document.getElementById("header");
 
+// ---- robust scroll to bottom ----
 function scrollToBottom() {
-  setTimeout(() => {
+  // wait for layout, then scroll; also scroll the last element for stubborn browsers
+  requestAnimationFrame(() => {
+    const last = chatContainer.lastElementChild;
     chatContainer.scrollTop = chatContainer.scrollHeight;
-  }, 50); // small delay ensures DOM update
+    if (last && last.scrollIntoView) {
+      last.scrollIntoView({ block: "end" });
+    }
+  });
 }
 
+// auto-scroll whenever messages are added
+const observer = new MutationObserver(() => scrollToBottom());
+observer.observe(chatContainer, { childList: true });
+
+// header shrink transition can change height; scroll again after transition
+header.addEventListener("transitionend", (e) => {
+  if (e.target === header) scrollToBottom();
+});
+
+// show chat after file upload
 fileInput.addEventListener("change", () => {
   if (fileInput.files.length > 0) {
     document.getElementById("chatSection").classList.remove("hidden");
-    scrollToBottom();
+    // small delay lets the section unhide and size itself
+    setTimeout(scrollToBottom, 60);
   }
 });
 
-document.getElementById("ask-form").addEventListener("submit", async function(event) {
+document.getElementById("ask-form").addEventListener("submit", async function (event) {
   event.preventDefault();
   const question = questionInput.value.trim();
 
@@ -32,61 +49,53 @@ document.getElementById("ask-form").addEventListener("submit", async function(ev
   }
 
   header.classList.add("shrink");
-  uploadBox.style.display = "none"; 
+  uploadBox.style.display = "none";
 
-  // append user message
+  // user message
   const userMessage = document.createElement("div");
   userMessage.className = "message user";
   userMessage.textContent = question;
   chatContainer.appendChild(userMessage);
-  scrollToBottom();
-
+  setTimeout(scrollToBottom, 80);
   typingIndicator.classList.remove("hidden");
-  scrollToBottom();
-
   questionInput.value = "";
-
-  // prepare form data
+  setTimeout(scrollToBottom, 80);
+  // form data
   const formData = new FormData();
   formData.append("file", fileInput.files[0]);
   formData.append("question", question);
 
   try {
-    const res = await fetch("upload/", {
-      method: "POST",
-      body: formData
-    });
+    const res = await fetch("upload/", { method: "POST", body: formData });
 
-    let data;
     if (!res.ok) {
-      // ❌ server returned error page
-      const text = await res.text();
+      const text = await res.text(); // backend may return HTML error page
       throw new Error(text);
     }
 
+    let data;
     try {
       data = await res.json();
     } catch {
-      // fallback if response is not JSON
       const text = await res.text();
       data = { answer: text };
     }
 
-    // bot message
     const botMessage = document.createElement("div");
     botMessage.className = "message bot";
+    setTimeout(scrollToBottom, 80);
     botMessage.innerHTML = data.answer || "Sorry, no answer found.";
     chatContainer.appendChild(botMessage);
-
   } catch (error) {
     console.error("Error:", error);
     const botMessage = document.createElement("div");
     botMessage.className = "message bot";
-    botMessage.textContent = "Something went wrong. Try again later dude. ",+error.message;
+    setTimeout(scrollToBottom, 80);
+    botMessage.textContent = "Something went wrong. Try again later.";
     chatContainer.appendChild(botMessage);
+  } finally {
+    typingIndicator.classList.add("hidden");
+    // extra scroll after everything settles (including fonts/markdown layout)
+    setTimeout(scrollToBottom, 80);
   }
-
-  typingIndicator.classList.add("hidden");
-  scrollToBottom();
-  questionInput.value = ""; // clear input
 });
