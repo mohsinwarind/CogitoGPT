@@ -5,14 +5,12 @@ const uploadBox = document.getElementById("uploadBox");
 const typingIndicator = document.getElementById("typingIndicator");
 const header = document.getElementById("header");
 
-// ✅ helper function to always scroll to bottom
 function scrollToBottom() {
   setTimeout(() => {
     chatContainer.scrollTop = chatContainer.scrollHeight;
   }, 50); // small delay ensures DOM update
 }
 
-// 👉 show chat section as soon as a file is uploaded
 fileInput.addEventListener("change", () => {
   if (fileInput.files.length > 0) {
     document.getElementById("chatSection").classList.remove("hidden");
@@ -20,7 +18,6 @@ fileInput.addEventListener("change", () => {
   }
 });
 
-// 👉 handle submit separately
 document.getElementById("ask-form").addEventListener("submit", async function(event) {
   event.preventDefault();
   const question = questionInput.value.trim();
@@ -35,7 +32,7 @@ document.getElementById("ask-form").addEventListener("submit", async function(ev
   }
 
   header.classList.add("shrink");
-  uploadBox.style.display = "none"; // hide upload box after file upload
+  uploadBox.style.display = "none"; 
 
   // append user message
   const userMessage = document.createElement("div");
@@ -55,12 +52,25 @@ document.getElementById("ask-form").addEventListener("submit", async function(ev
   formData.append("question", question);
 
   try {
-    const response = await fetch("upload/", {
+    const res = await fetch("upload/", {
       method: "POST",
       body: formData
     });
 
-    const data = await response.json();
+    let data;
+    if (!res.ok) {
+      // ❌ server returned error page
+      const text = await res.text();
+      throw new Error(text);
+    }
+
+    try {
+      data = await res.json();
+    } catch {
+      // fallback if response is not JSON
+      const text = await res.text();
+      data = { answer: text };
+    }
 
     // bot message
     const botMessage = document.createElement("div");
@@ -68,18 +78,15 @@ document.getElementById("ask-form").addEventListener("submit", async function(ev
     botMessage.innerHTML = data.answer || "Sorry, no answer found.";
     chatContainer.appendChild(botMessage);
 
-    typingIndicator.classList.add("hidden");
-    scrollToBottom();
   } catch (error) {
     console.error("Error:", error);
     const botMessage = document.createElement("div");
     botMessage.className = "message bot";
     botMessage.textContent = "Something went wrong. Try again.";
     chatContainer.appendChild(botMessage);
-
-    typingIndicator.classList.add("hidden");
-    scrollToBottom();
   }
 
+  typingIndicator.classList.add("hidden");
+  scrollToBottom();
   questionInput.value = ""; // clear input
 });
