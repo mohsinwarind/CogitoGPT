@@ -55,6 +55,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'CogitoGPT.urls'
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 
 TEMPLATES = [
     {
