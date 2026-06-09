@@ -8,6 +8,7 @@ Being in academia for a while, I always found research articles overly complex a
 
 **How it works in short:** you **upload** a research paper , then **ask questions** according to your need and CogitoGPT uses the extract the text content out of the file as context and gives intelligent, relevant, concise, context-aware answers in real-time. It **renders Markdown**, so responses look clean and dynamic (headings, lists, code blocks, etc.).
 
+*Update Guys, I shifted on Open AI model instead of Mistral because it was not working fine*
 ---
 
 ## Features
@@ -23,7 +24,7 @@ Being in academia for a while, I always found research articles overly complex a
 
 ##  Tech Stack
 
-* **Model**: Mistral-7B-Instruct-v0.3 (via Hugging Face)
+* **Model**: ~~Mistral-7B-Instruct-v0.3~~  OpenAI gpt-oss-120b (via Hugging Face)
 * **Frontend**: Custom-built (mobile-first layout)
 * **Backend**: Custom API integrated with Hugging Face model calls
 * **Hosting**: (Add your hosting details here — e.g., Vercel, Hugging Face Spaces, or your server)
@@ -62,7 +63,6 @@ Being in academia for a while, I always found research articles overly complex a
 
 ##  Credits
 
-* **Model**: Mistral-7B-Instruct-v0.3 (Hugging Face)
 * Built with ❤️ by Mohsin
 
 ---
